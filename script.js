@@ -1,4 +1,4 @@
-<script>
+
     window.botpress.on("webchat:ready", () => window.botpress.open());
     window.botpress.init({
       botId: "28e8d0bd-18cc-4875-b48e-9a588602f6d1",
@@ -17,4 +17,4 @@
         additionalStylesheetUrl: "https://files.bpcontent.cloud/2025/04/21/04/20250421043425-YMVB7EVX.css"
       }
     });
-  </script>
+
