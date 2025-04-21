@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kisan Samadhan – Agriculture AI Chatbot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.botpress.cloud/webchat/v2.3/inject.js"></script>
+  <style>
+    :root {
+      --green: #4CAF50;
+      --soil: #F5F5DC;
+      --yellow: #FFD54F;
+      --border-radius: 1rem;
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+      background: url("C:\Users\ATL 2\Downloads\kisaanmain.png") no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Rubik', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .layout {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 600px;  /* adjust to align roughly with chat height */
+    }
+
+    /* Stagger the boxes */
+    .side.left .box.top     { margin-bottom: auto; }
+    .side.left .box.bottom  { margin-top: 2rem; }
+
+    .side.right .box.top    { margin-top: 2rem; }
+    .side.right .box.bottom { margin-top: auto; }
+
+    .box {
+      background: rgba(255,255,255,0.9);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      max-width: 300px;
+      line-height: 1.4;
+    }
+    .box h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+      color: var(--green);
+    }
+    .box ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+    .box li {
+      margin-bottom: 0.4rem;
+    }
+
+    .bot-container {
+      background: rgba(255,255,255,0.95);
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      padding: 2rem 1.5rem;
+      width: 100%;
+      max-width: 430px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 2px solid var(--green);
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+
+    .logo {
+      width: 64px;
+      margin-bottom: 0.8rem;
+    }
+    .headline {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green);
+      margin: 0.2rem 0 1rem;
+      text-align: center;
+    }
+    .welcome {
+      font-size: 1rem;
+      color: #333;
+      text-align: center;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    #webchat {
+      width: 100%;
+      height: 450px;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      background: var(--soil);
+      box-shadow: 0 0 0 3px var(--yellow);
+    }
+    #webchat .bpWebchat {
+      position: unset !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    #webchat .bpFab {
+      display: none !important;
+    }
+
+    @media (max-width: 1000px) {
+      body { padding: 1rem; }
+      .layout { flex-direction: column; align-items: center; }
+      .side { height: auto; width: 100%; flex-direction: row; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+      .side.left .box.bottom, .side.right .box.top { margin: 0; }
+      .bot-container { max-width: 95%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+
+    <!-- Left side bento boxes -->
+    <div class="side left">
+      <div class="box top">
+        <h3>💬 Natural & Voice Chat</h3>
+        <ul>
+          <li><strong>Type freely</strong> in English or Hindi</li>
+          <li><strong>Speak your question</strong> and hear the reply</li>
+        </ul>
+      </div>
+      <div class="box bottom">
+        <h3>🌱 Crop & Pest Insights</h3>
+        <ul>
+          <li><strong>Smart crop picks</strong> by season & region</li>
+          <li><strong>Instant diagnosis</strong> of pests & diseases</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Center chatbox -->
+    <div class="bot-container">
+      <img src="C:\Users\ATL 2\Downloads\kissan.png" alt="Kisan Logo" class="logo"/>
+      <div class="headline">Kisan Samadhan</div>
+      <div class="welcome">
+        Welcome! Your AI farming advisor is here.<br/>
+        <b>किसान समाधान में आपका स्वागत है!</b>
+      </div>
+      <div id="webchat"></div>
+    </div>
+
+    <!-- Right side bento boxes -->
+    <div class="side right">
+      <div class="box top">
+        <h3>🐄 Livestock & Weather</h3>
+        <ul>
+          <li><strong>Animal care tips</strong> for health & nutrition</li>
+          <li><strong>Weather alerts</strong> to plan your farm work</li>
+        </ul>
+      </div>
+      <div class="box bottom">
+        <h3>📈 Markets & Schemes</h3>
+        <ul>
+          <li><strong>Live mandi rates</strong> across commodities</li>
+          <li><strong>Insurance & subsidies</strong> guidance (PMFBY etc.)</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.botpress.on("webchat:ready", () => window.botpress.open());
+    window.botpress.init({
+      botId: "28e8d0bd-18cc-4875-b48e-9a588602f6d1",
+      clientId: "fab09bef-1339-44c8-ada9-ed8ee9402bad",
+      selector: "#webchat",
+      configuration: {
+        composerPlaceholder: "Type your farming question…",
+        botName: "Kisan Samadhan",
+        botAvatar: "https://files.bpcontent.cloud/2025/04/21/05/20250421051255-GAEI62NH.png",
+        color: "#e9933d",
+        variant: "solid",
+        themeMode: "light",
+        fontFamily: "rubik",
+        radius: 4,
+        allowFileUpload: true,
+        additionalStylesheetUrl: "https://files.bpcontent.cloud/2025/04/21/04/20250421043425-YMVB7EVX.css"
+      }
+    });
+  </script>
+</body>
+</html>
